@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+    environment:
+      TZ: 'America/New_York'
+      WEBPASSWORD: ${PIHOLE_PASSWORD}
+    volumes:
+      - ./data/pihole/etc-pihole:/etc/pihole
+      - ./data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+      - ./config/pihole/custom.list:/etc/pihole/custom.list
+      - ./config/pihole/adlists.list:/etc/pihole/adlists.list
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    restart: unless-stopped
+    networks:
+      - proxy_network
+
+  haproxy:
+    container_name: haproxy
+    image: haproxy:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./data/haproxy/certs:/etc/haproxy/certs:ro
+      - ./config/haproxy/errors:/etc/haproxy/errors:ro
+    depends_on:
+      - pihole
+      - openvpn
+    restart: unless-stopped
+    networks:
+      - proxy_network
+
+  openvpn:
+    container_name: openvpn
+    image: kylemanna/openvpn:latest
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "1194:1194/udp"
+    volumes:
+      - ./data/openvpn:/etc/openvpn
+      - ./config/openvpn:/etc/openvpn/config
+    environment:
+      - EASYRSA_KEY_SIZE=4096
+    restart: unless-stopped
+    networks:
+      - proxy_network
+
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:latest
+    volumes:
+      - ./data/haproxy/certs:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot --email admin@irvh.bawas.com --agree-tos --no-eff-email -d *.irvh.bawas.com
+    depends_on:
+      - haproxy
+
+networks:
+  proxy_network:
+    driver: bridge 
