@@ -398,3 +398,59 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Environment files
+.env
+.env.*
+!.env.sample
+
+# Data directories
+data/
+!data/.gitkeep
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+*.csr
+*.srl
+*.p12
+
+# OpenVPN files
+*.ovpn
+*.conf
+openvpn/*.conf
+openvpn/*.key
+openvpn/*.crt
+openvpn/*.pem
+openvpn/*.p12
+openvpn/pki/
+*.google_authenticator
+
+# Pi-hole data
+pihole/etc-pihole/
+pihole/etc-dnsmasq.d/
+
+# HAProxy generated files
+haproxy/certs/
+haproxy/errors/
+
+# Log files
+*.log
+logs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
