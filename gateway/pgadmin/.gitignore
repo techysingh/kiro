@@ -1,0 +1,22 @@
+# Environment variables with sensitive data
+.env
+
+# Pre-configured server connections with credentials
+servers.json
+
+# pgAdmin data directory
+data/
+
+# pgAdmin configuration directory
+config/
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# System files
+.DS_Store
+Thumbs.db 
