@@ -1,0 +1,17 @@
+services:
+  openvpn-as:
+    image: openvpn/openvpn-as
+    platform: arm64
+    container_name: openvpn-as
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - MKNOD
+    ports:
+      - 1943:943
+      - 1443:443
+      - 1194:1194/udp
+    volumes:
+      - ./config:/openvpn
+    restart: unless-stopped
