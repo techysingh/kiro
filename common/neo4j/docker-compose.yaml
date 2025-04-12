@@ -1,0 +1,23 @@
+services:
+  neo4j:
+    image: neo4j:5.26.0
+    container_name: neo4j
+    ports:
+      - "7474:7474"  # HTTP
+      - "7687:7687"  # Bolt
+    environment: 
+      NEO4J_AUTH: "neo4j/password"  # Set the default username and password
+      NEO4J_client_allow_telemetry: "false"  # Disable telemetry
+      NEO4J_apoc_import_file_enabled: "true"  # Enable file import
+      NEO4J_apoc_export_file_enabled: "true"  # Enable file export
+      NEO4J_apoc_import_file_use_neo4j_config: "true"  # Use Neo4j config for file import
+      NEO4J_apoc_export_file_use_neo4j_config: "true"  # Use Neo4j config for file export
+      NEO4J_PLUGINS: "apoc,apoc-extended,graph-data-science"  # Enable APOC and GDS plugins
+      JDK_JAVA_OPTIONS: "--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED"  # 
+    volumes:
+      - ./data/neo4j_data:/data
+      - ./data/neo4j_logs:/logs
+      - ./data/neo4j_import:/var/lib/neo4j/import
+      - ./data/neo4j_plugins:/plugins
+      - ./data/neo4j_conf:/conf
+    restart: unless-stopped
