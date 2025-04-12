@@ -7,13 +7,13 @@ services:
       - "7687:7687"  # Bolt
     environment: 
       NEO4J_AUTH: "neo4j/password"  # Set the default username and password
-      NEO4J_client_allow_telemetry: "false"  # Disable telemetry
+      NEO4J_client_allow__telemetry: "false"  # Disable telemetry
       NEO4J_apoc_import_file_enabled: "true"  # Enable file import
       NEO4J_apoc_export_file_enabled: "true"  # Enable file export
       NEO4J_apoc_import_file_use_neo4j_config: "true"  # Use Neo4j config for file import
       NEO4J_apoc_export_file_use_neo4j_config: "true"  # Use Neo4j config for file export
-      NEO4J_PLUGINS: "apoc,apoc-extended,graph-data-science"  # Enable APOC and GDS plugins
-      JDK_JAVA_OPTIONS: "--add-opens=java.base/java.nio=org.apache.arrow.memory.core,ALL-UNNAMED"  # 
+      NEO4J_PLUGINS: '["apoc", "apoc-extended", "graph-data-science"]'  # Enable APOC and GDS plugins
+      JDK_JAVA_OPTIONS: "--add-opens=java.base/java.nio=ALL-UNNAMED"  # 
     volumes:
       - ./data/neo4j_data:/data
       - ./data/neo4j_logs:/logs
