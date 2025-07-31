@@ -1,0 +1,188 @@
+# Simple Backend Service Template
+# Copy and modify this template for your own services
+
+version: '3.8'
+
+services:
+  # Replace 'my-service' with your actual service name
+  my-service:
+    # Use your actual Docker image
+    image: nginx:alpine
+    
+    # Use a descriptive container name
+    container_name: my-service-1
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Connect to the HAProxy network
+    networks:
+      - proxy-network
+    
+    # Environment variables for service discovery
+    environment:
+      # Required: Service identifier (used for backend grouping)
+      - SERVICE_NAME=my-service
+      
+      # Required: Service type (api, app, www, admin, etc.)
+      - SERVICE_TYPE=app
+      
+      # Optional: Custom subdomain (defaults to SERVICE_NAME)
+      - SERVICE_SUBDOMAIN=my-service
+      
+      # Optional: Service port (defaults to 80)
+      - SERVICE_PORT=8080
+      
+      # Optional: Health check path (defaults to /health)
+      - SERVICE_HEALTH_PATH=/health
+      
+      # Optional: Protocol (http or https, defaults to http)
+      - SERVICE_PROTOCOL=http
+      
+      # Optional: Instance identifier for load balancing
+      - INSTANCE_ID=1
+      
+      # Your application-specific environment variables
+      - APP_ENV=production
+      - DEBUG=false
+    
+    # Optional: Port mapping (only needed for direct access)
+    # ports:
+    #   - "8080:8080"
+    
+    # Optional: Volume mounts
+    # volumes:
+    #   - ./app-data:/app/data
+    #   - ./app-config:/app/config:ro
+    
+    # Optional: Resource limits
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 512M
+    #       cpus: '0.5'
+    
+    # Required: Health check configuration
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    
+    # Optional: Dependencies
+    # depends_on:
+    #   - database
+    #   - redis
+    
+    # Example command for nginx with custom configuration
+    command: >
+      sh -c "
+        # Create a simple service configuration
+        cat > /etc/nginx/conf.d/default.conf << 'EOF'
+        server {
+            listen 8080;
+            server_name my-service.colakdo.com;
+            
+            # Health check endpoint (required)
+            location /health {
+                access_log off;
+                return 200 'healthy';
+                add_header Content-Type text/plain;
+            }
+            
+            # Main application endpoints
+            location / {
+                return 200 '<!DOCTYPE html>
+                <html>
+                <head><title>My Service</title></head>
+                <body>
+                    <h1>My Service is Running</h1>
+                    <p>Service: my-service</p>
+                    <p>Instance: 1</p>
+                    <p>Status: Ready</p>
+                </body>
+                </html>';
+                add_header Content-Type text/html;
+            }
+            
+            # API endpoints example
+            location /api/ {
+                return 200 '{\"status\":\"ok\",\"service\":\"my-service\",\"version\":\"1.0.0\"}';
+                add_header Content-Type application/json;
+            }
+        }
+        EOF
+        
+        echo 'Starting My Service...' &&
+        nginx -g 'daemon off;'
+      "
+
+# Optional: Additional services (database, cache, etc.)
+# database:
+#   image: postgres:13
+#   container_name: my-service-db
+#   restart: unless-stopped
+#   networks:
+#     - proxy-network
+#   environment:
+#     - POSTGRES_DB=myservice
+#     - POSTGRES_USER=user
+#     - POSTGRES_PASSWORD=password
+#   volumes:
+#     - db-data:/var/lib/postgresql/data
+
+# redis:
+#   image: redis:alpine
+#   container_name: my-service-redis
+#   restart: unless-stopped
+#   networks:
+#     - proxy-network
+
+# Required: Connect to the HAProxy network
+networks:
+  proxy-network:
+    external: true
+
+# Optional: Named volumes
+# volumes:
+#   db-data:
+#     driver: local
+
+# ============================================================================
+# CUSTOMIZATION CHECKLIST
+# ============================================================================
+# 
+# 1. Replace 'my-service' with your actual service name throughout the file
+# 2. Update the Docker image to your application image
+# 3. Configure the correct SERVICE_PORT for your application
+# 4. Implement a proper /health endpoint in your application
+# 5. Add your application-specific environment variables
+# 6. Configure volume mounts if your app needs persistent storage
+# 7. Add database or other dependencies if needed
+# 8. Update the health check command for your specific application
+# 9. Set appropriate resource limits for your service
+# 10. Test the service before deploying to production
+# 
+# ============================================================================
+# DEPLOYMENT INSTRUCTIONS
+# ============================================================================
+# 
+# 1. Ensure the HAProxy stack is running:
+#    cd demo.colakdo.com && ./scripts/deploy.sh
+# 
+# 2. Copy and customize this template:
+#    cp simple-backend-template.yml my-service.yml
+# 
+# 3. Edit my-service.yml with your service details
+# 
+# 4. Deploy your service:
+#    docker-compose -f my-service.yml up -d
+# 
+# 5. Verify service is discovered:
+#    curl http://localhost:8404/stats
+# 
+# 6. Test your service:
+#    curl -k https://my-service.colakdo.com
+# 
+# ============================================================================

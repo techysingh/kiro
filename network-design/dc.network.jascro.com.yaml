@@ -1,0 +1,40 @@
+
+services:
+  hello-world:
+    image: hello-world
+    networks:
+      - appnet2
+      - appnet3
+      - dbnet
+networks:
+  vpnnet:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "false"  # Blocks intra-network communication
+    ipam:
+      config:
+        - subnet: "172.16.0.0/16"
+    attachable: true
+
+  appnet2:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.17.0.0/16"
+    attachable: true
+
+  appnet3:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/17"
+    internal: true  # Blocks internet access
+    attachable: true
+
+  dbnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.19.0.0/16"
+    internal: true  # Blocks internet access
+    attachable: true

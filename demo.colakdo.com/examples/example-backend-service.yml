@@ -1,0 +1,356 @@
+# Example Backend Service Configuration
+# This demonstrates how to create a backend service that integrates with the HAProxy setup
+
+version: '3.8'
+
+services:
+  # Example API service
+  api-service:
+    image: nginx:alpine
+    container_name: api-service-1
+    restart: unless-stopped
+    networks:
+      - proxy-network
+    environment:
+      - SERVICE_NAME=api-service
+      - SERVICE_TYPE=api
+    volumes:
+      - ./api-config:/etc/nginx/conf.d:ro
+    command: >
+      sh -c "
+        # Create API health endpoint configuration
+        cat > /etc/nginx/conf.d/default.conf << 'EOF'
+        server {
+            listen 8080;
+            server_name api.colakdo.com;
+            
+            # Health check endpoint
+            location /api/health {
+                access_log off;
+                return 200 '{\"status\":\"ok\",\"timestamp\":\"$(date -Iseconds)\",\"service\":\"api-service-1\"}';
+                add_header Content-Type application/json;
+            }
+            
+            # Main API endpoints
+            location /api/ {
+                return 200 'API Service Running';
+                add_header Content-Type text/plain;
+            }
+            
+            # Default location
+            location / {
+                return 404 'Not Found';
+            }
+        }
+        EOF
+        
+        echo 'Starting API service...' &&
+        nginx -g 'daemon off;'
+      "
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Example App service
+  app-service:
+    image: nginx:alpine
+    container_name: app-service-1
+    restart: unless-stopped
+    networks:
+      - proxy-network
+    environment:
+      - SERVICE_NAME=app-service
+      - SERVICE_TYPE=app
+    command: >
+      sh -c "
+        # Create App health endpoint configuration
+        cat > /etc/nginx/conf.d/default.conf << 'EOF'
+        server {
+            listen 3000;
+            server_name app.colakdo.com;
+            
+            # Health check endpoint
+            location /app/health {
+                access_log off;
+                return 200 'application_ready';
+                add_header Content-Type text/plain;
+            }
+            
+            # Main application
+            location / {
+                return 200 '<!DOCTYPE html>
+                <html>
+                <head><title>App Service</title></head>
+                <body>
+                    <h1>Application Service Running</h1>
+                    <p>Service: app-service-1</p>
+                    <p>Status: Ready</p>
+                </body>
+                </html>';
+                add_header Content-Type text/html;
+            }
+        }
+        EOF
+        
+        echo 'Starting App service...' &&
+        nginx -g 'daemon off;'
+      "
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:3000/app/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Example WWW service
+  www-service:
+    image: nginx:alpine
+    container_name: www-service-1
+    restart: unless-stopped
+    networks:
+      - proxy-network
+    environment:
+      - SERVICE_NAME=www-service
+      - SERVICE_TYPE=www
+    command: >
+      sh -c "
+        # Create WWW health endpoint configuration
+        cat > /etc/nginx/conf.d/default.conf << 'EOF'
+        server {
+            listen 80;
+            server_name www.colakdo.com;
+            
+            # Health check endpoint
+            location /health {
+                access_log off;
+                return 200 'healthy';
+                add_header Content-Type text/plain;
+            }
+            
+            # Main website
+            location / {
+                return 200 '<!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Welcome to colakdo.com</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 40px; }
+                        .container { max-width: 800px; margin: 0 auto; }
+                        .status { color: green; font-weight: bold; }
+                    </style>
+                </head>
+                <body>
+                    <div class=\"container\">
+                        <h1>Welcome to colakdo.com</h1>
+                        <p class=\"status\">Service Status: Online</p>
+                        <p>This is the main website served by www-service-1</p>
+                        <p>Load balanced through HAProxy with SSL termination</p>
+                    </div>
+                </body>
+                </html>';
+                add_header Content-Type text/html;
+            }
+        }
+        EOF
+        
+        echo 'Starting WWW service...' &&
+        nginx -g 'daemon off;'
+      "
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Example Admin service (with SSL)
+  admin-service:
+    image: nginx:alpine
+    container_name: admin-service-1
+    restart: unless-stopped
+    networks:
+      - proxy-network
+    environment:
+      - SERVICE_NAME=admin-service
+      - SERVICE_TYPE=admin
+    command: >
+      sh -c "
+        # Generate self-signed certificate for admin service
+        apk add --no-cache openssl &&
+        mkdir -p /etc/nginx/ssl &&
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+          -keyout /etc/nginx/ssl/admin.key \
+          -out /etc/nginx/ssl/admin.crt \
+          -subj '/C=US/ST=State/L=City/O=Organization/CN=admin.colakdo.com' &&
+        
+        # Create Admin service configuration
+        cat > /etc/nginx/conf.d/default.conf << 'EOF'
+        server {
+            listen 8443 ssl;
+            server_name admin.colakdo.com;
+            
+            ssl_certificate /etc/nginx/ssl/admin.crt;
+            ssl_certificate_key /etc/nginx/ssl/admin.key;
+            ssl_protocols TLSv1.2 TLSv1.3;
+            ssl_ciphers HIGH:!aNULL:!MD5;
+            
+            # Health check endpoint
+            location /admin/health {
+                access_log off;
+                return 200 'admin_healthy';
+                add_header Content-Type text/plain;
+                add_header X-Health-Check true;
+            }
+            
+            # Admin interface
+            location / {
+                return 200 '<!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Admin Panel</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+                        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 5px; }
+                        .status { color: green; font-weight: bold; }
+                        .warning { color: orange; font-size: 0.9em; }
+                    </style>
+                </head>
+                <body>
+                    <div class=\"container\">
+                        <h1>Admin Panel</h1>
+                        <p class=\"status\">Service Status: Secure</p>
+                        <p>This is the admin interface served by admin-service-1</p>
+                        <p class=\"warning\">Note: Using self-signed certificate for demo</p>
+                    </div>
+                </body>
+                </html>';
+                add_header Content-Type text/html;
+            }
+        }
+        EOF
+        
+        echo 'Starting Admin service...' &&
+        nginx -g 'daemon off;'
+      "
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--no-check-certificate", "--spider", "https://localhost:8443/admin/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # Example Demo service with multiple instances for load balancing
+  demo-service-1:
+    image: nginx:alpine
+    container_name: demo-service-1
+    restart: unless-stopped
+    networks:
+      - proxy-network
+    environment:
+      - SERVICE_NAME=demo-service
+      - SERVICE_TYPE=demo
+      - INSTANCE_ID=1
+    command: >
+      sh -c "
+        cat > /etc/nginx/conf.d/default.conf << 'EOF'
+        server {
+            listen 80;
+            server_name demo.colakdo.com;
+            
+            location /demo/health {
+                access_log off;
+                return 200 'healthy';
+                add_header Content-Type text/plain;
+            }
+            
+            location / {
+                return 200 '<!DOCTYPE html>
+                <html>
+                <head><title>Demo Service</title></head>
+                <body>
+                    <h1>Demo Service - Instance 1</h1>
+                    <p>This demonstrates load balancing across multiple instances</p>
+                    <p>Instance ID: 1</p>
+                    <p>Container: demo-service-1</p>
+                </body>
+                </html>';
+                add_header Content-Type text/html;
+                add_header X-Instance-ID 1;
+            }
+        }
+        EOF
+        
+        nginx -g 'daemon off;'
+      "
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80/demo/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  demo-service-2:
+    image: nginx:alpine
+    container_name: demo-service-2
+    restart: unless-stopped
+    networks:
+      - proxy-network
+    environment:
+      - SERVICE_NAME=demo-service
+      - SERVICE_TYPE=demo
+      - INSTANCE_ID=2
+    command: >
+      sh -c "
+        cat > /etc/nginx/conf.d/default.conf << 'EOF'
+        server {
+            listen 80;
+            server_name demo.colakdo.com;
+            
+            location /demo/health {
+                access_log off;
+                return 200 'healthy';
+                add_header Content-Type text/plain;
+            }
+            
+            location / {
+                return 200 '<!DOCTYPE html>
+                <html>
+                <head><title>Demo Service</title></head>
+                <body>
+                    <h1>Demo Service - Instance 2</h1>
+                    <p>This demonstrates load balancing across multiple instances</p>
+                    <p>Instance ID: 2</p>
+                    <p>Container: demo-service-2</p>
+                </body>
+                </html>';
+                add_header Content-Type text/html;
+                add_header X-Instance-ID 2;
+            }
+        }
+        EOF
+        
+        nginx -g 'daemon off;'
+      "
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80/demo/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  proxy-network:
+    external: true
+
+# Usage Instructions:
+# 1. Ensure the main HAProxy stack is running: docker-compose -f ../docker-compose.yml up -d
+# 2. Start these example services: docker-compose -f example-backend-service.yml up -d
+# 3. Services will be automatically discovered and added to HAProxy backends
+# 4. Test the services:
+#    - https://www.colakdo.com (WWW service)
+#    - https://api.colakdo.com/api/ (API service)
+#    - https://app.colakdo.com (App service)
+#    - https://admin.colakdo.com (Admin service)
+#    - https://demo.colakdo.com (Demo service with load balancing)
+# 5. Monitor backend status: https://colakdo.com:8404/stats

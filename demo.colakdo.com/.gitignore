@@ -1,0 +1,21 @@
+# Environment files
+.env
+
+# DNS credentials (security)
+dns-credentials/*.ini
+dns-credentials/*.conf
+
+# SSL certificates (generated)
+certs/live/
+certs/archive/
+certs/renewal/
+
+# Log files
+logs/*.log
+logs/*.log.*
+logs/archive/
+
+# Temporary files
+*.tmp
+*.bak
+*~

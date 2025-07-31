@@ -1,0 +1,76 @@
+[2025-07-30 22:21:15] [INFO] Starting HAProxy configuration reload process
+[2025-07-30 22:21:15] [DEBUG] Config file: /tmp/haproxy-test-64000/haproxy.cfg
+[2025-07-30 22:21:15] [DEBUG] Force reload: false
+[2025-07-30 22:21:15] [DEBUG] Test only: true
+[2025-07-30 22:21:15] [DEBUG] Rollback mode: false
+[2025-07-30 22:21:15] [DEBUG] Skip health check: false
+[2025-07-30 22:21:15] [INFO] Starting configuration reload process
+[2025-07-30 22:21:15] [ERROR] HAProxy binary not found in PATH
+[2025-07-30 22:21:23] [INFO] Starting HAProxy configuration reload process
+[2025-07-30 22:21:23] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:21:24] [DEBUG] Force reload: false
+[2025-07-30 22:21:24] [DEBUG] Test only: true
+[2025-07-30 22:21:24] [DEBUG] Rollback mode: false
+[2025-07-30 22:21:24] [DEBUG] Skip health check: false
+[2025-07-30 22:21:24] [INFO] Starting configuration reload process
+[2025-07-30 22:21:24] [ERROR] HAProxy binary not found in PATH
+[2025-07-30 22:21:38] [INFO] Starting HAProxy configuration reload process
+[2025-07-30 22:21:38] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:21:38] [DEBUG] Force reload: false
+[2025-07-30 22:21:38] [DEBUG] Test only: true
+[2025-07-30 22:21:38] [DEBUG] Rollback mode: false
+[2025-07-30 22:21:38] [DEBUG] Skip health check: false
+[2025-07-30 22:21:38] [INFO] Starting configuration reload process
+[2025-07-30 22:21:38] [WARN] HAProxy binary not found in PATH (test mode, continuing)
+[2025-07-30 22:21:38] [INFO] Validating HAProxy configuration
+[2025-07-30 22:21:38] [DEBUG] Using validation script: ./demo.colakdo.com/scripts/validate-haproxy-config.sh
+[2025-07-30 22:21:38] [INFO] Configuration validation passed
+[2025-07-30 22:21:38] [INFO] Test completed successfully, no reload performed
+[2025-07-30 22:22:14] [INFO] Starting HAProxy configuration reload process
+[2025-07-30 22:22:14] [DEBUG] Config file: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:14] [DEBUG] Force reload: false
+[2025-07-30 22:22:15] [DEBUG] Test only: true
+[2025-07-30 22:22:15] [DEBUG] Rollback mode: false
+[2025-07-30 22:22:15] [DEBUG] Skip health check: false
+[2025-07-30 22:22:15] [INFO] Starting configuration reload process
+[2025-07-30 22:22:15] [WARN] HAProxy binary not found in PATH (test mode, continuing)
+[2025-07-30 22:22:15] [INFO] Validating HAProxy configuration
+[2025-07-30 22:22:15] [DEBUG] Using validation script: /Users/paramdeepsingh/ps/projects/PrescSC/bootstrap/demo.colakdo.com/scripts/validate-haproxy-config.sh
+[2025-07-30 22:22:15] [INFO] Configuration validation passed
+[2025-07-30 22:22:15] [INFO] Test completed successfully, no reload performed
+[2025-07-30 22:22:15] [INFO] Starting HAProxy configuration reload process
+[2025-07-30 22:22:15] [DEBUG] Config file: /tmp/haproxy-test-64362/invalid_reload.cfg
+[2025-07-30 22:22:15] [DEBUG] Force reload: false
+[2025-07-30 22:22:15] [DEBUG] Test only: true
+[2025-07-30 22:22:15] [DEBUG] Rollback mode: false
+[2025-07-30 22:22:15] [DEBUG] Skip health check: false
+[2025-07-30 22:22:15] [INFO] Starting configuration reload process
+[2025-07-30 22:22:15] [WARN] HAProxy binary not found in PATH (test mode, continuing)
+[2025-07-30 22:22:15] [INFO] Validating HAProxy configuration
+[2025-07-30 22:22:15] [DEBUG] Using validation script: /Users/paramdeepsingh/ps/projects/PrescSC/bootstrap/demo.colakdo.com/scripts/validate-haproxy-config.sh
+[2025-07-30 22:22:15] [INFO] Configuration validation passed
+[2025-07-30 22:22:15] [INFO] Test completed successfully, no reload performed
+[2025-07-30 22:22:27] [INFO] Starting HAProxy configuration reload process
+[2025-07-30 22:22:28] [DEBUG] Config file: /tmp/invalid_test.cfg
+[2025-07-30 22:22:28] [DEBUG] Force reload: false
+[2025-07-30 22:22:28] [DEBUG] Test only: true
+[2025-07-30 22:22:28] [DEBUG] Rollback mode: false
+[2025-07-30 22:22:28] [DEBUG] Skip health check: false
+[2025-07-30 22:22:28] [INFO] Starting configuration reload process
+[2025-07-30 22:22:28] [WARN] HAProxy binary not found in PATH (test mode, continuing)
+[2025-07-30 22:22:28] [INFO] Validating HAProxy configuration
+[2025-07-30 22:22:28] [DEBUG] Using validation script: ./demo.colakdo.com/scripts/validate-haproxy-config.sh
+[2025-07-30 22:22:28] [INFO] Configuration validation passed
+[2025-07-30 22:22:28] [INFO] Test completed successfully, no reload performed
+[2025-07-31 04:59:39] [INFO] Starting HAProxy configuration reload process
+[2025-07-31 04:59:39] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-31 04:59:39] [DEBUG] Force reload: false
+[2025-07-31 04:59:39] [DEBUG] Test only: true
+[2025-07-31 04:59:39] [DEBUG] Rollback mode: false
+[2025-07-31 04:59:39] [DEBUG] Skip health check: false
+[2025-07-31 04:59:39] [INFO] Starting configuration reload process
+[2025-07-31 04:59:39] [WARN] HAProxy binary not found in PATH (test mode, continuing)
+[2025-07-31 04:59:40] [INFO] Validating HAProxy configuration
+[2025-07-31 04:59:40] [DEBUG] Using validation script: ./demo.colakdo.com/scripts/validate-haproxy-config.sh
+[2025-07-31 04:59:40] [INFO] Configuration validation passed
+[2025-07-31 04:59:40] [INFO] Test completed successfully, no reload performed

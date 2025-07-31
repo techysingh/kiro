@@ -1,17 +1,26 @@
 services:
-  openvpn-as:
-    image: openvpn/openvpn-as
-    platform: arm64
-    container_name: openvpn-as
-    devices:
-      - /dev/net/tun:/dev/net/tun
+  openvpn:
+    image: kylemanna/openvpn
+    container_name: openvpn
+    ports:
+      - "1194:1194/udp"
+    volumes:
+      # - ./data/openvpn:/etc/openvpn
+      - ./config/openvpn:/etc/openvpn-config
+    environment:
+      - OVPN_HOST=68.5.31.2
+      - OVPN_DHCP_RANGE=172.16.1.101,172.16.1.200
+      - OVPN_DNS=1.1.1.1
+      - ENABLE_GOOGLE_AUTHENTICATOR=true
+      - OVPN_DEFAULT_USER=user
     cap_add:
       - NET_ADMIN
-      - MKNOD
-    ports:
-      - 1943:943
-      - 1443:443
-      - 1194:1194/udp
-    volumes:
-      - ./config:/openvpn
     restart: unless-stopped
+    command: [
+      "ovpn_run",
+      "--config", "/etc/openvpn-config/openvpn.conf",
+      "--server", "172.16.1.0/24"
+    ]
+
+volumes:
+  openvpn_data:

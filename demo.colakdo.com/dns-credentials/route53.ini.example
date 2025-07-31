@@ -1,0 +1,15 @@
+# AWS Route53 DNS credentials for DNS-01 challenge
+# Copy this file to route53.ini and fill in your credentials
+
+# AWS Access Key ID and Secret Access Key
+dns_route53_access_key_id = your-aws-access-key-id
+dns_route53_secret_access_key = your-aws-secret-access-key
+
+# Optional: AWS Session Token (for temporary credentials)
+# dns_route53_session_token = your-aws-session-token
+
+# Optional: AWS Region (defaults to us-east-1)
+# dns_route53_region = us-east-1
+
+# File permissions should be 600 (read/write for owner only)
+# chmod 600 dns-credentials/route53.ini

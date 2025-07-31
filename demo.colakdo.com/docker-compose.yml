@@ -1,0 +1,339 @@
+services:
+  haproxy:
+    image: haproxy:2.8-alpine
+    container_name: haproxy-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8404:8404"  # Stats endpoint
+    volumes:
+      - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./config:/usr/local/etc/haproxy/config:ro  # Additional config directory
+      - ./certs:/etc/ssl/certs:ro
+      - ./logs:/var/log/haproxy
+      - ./errors:/usr/local/etc/haproxy/errors:ro
+      - ./scripts:/scripts:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro  # For backend discovery
+    networks:
+      - proxy-network
+    depends_on:
+      - certbot
+      - syslog
+      - maintenance-server
+    environment:
+      - DOMAIN=colakdo.com
+      - STATS_PASSWORD=${STATS_PASSWORD:-secure_password_change_me}
+      - ALERT_EMAIL=${ALERT_EMAIL:-}
+      - WEBHOOK_URL=${WEBHOOK_URL:-}
+      - BACKEND_DISCOVERY_ENABLED=${BACKEND_DISCOVERY_ENABLED:-true}
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:8404/health >/dev/null 2>&1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  certbot:
+    # Dynamic image selection based on DNS provider
+    # Default to Cloudflare if DNS_PLUGIN is not set
+    image: ${CERTBOT_IMAGE:-certbot/dns-cloudflare:latest}
+    container_name: certbot-ssl
+    restart: unless-stopped
+    volumes:
+      - ./certs:/etc/letsencrypt
+      - ./certs:/etc/ssl/certs  # Mount for HAProxy certificate output
+      - ./dns-credentials:/etc/letsencrypt/dns-credentials:ro
+      - ./scripts:/scripts:ro
+      - ./logs:/var/log/letsencrypt  # Certbot logs
+    environment:
+      - DOMAIN=${DOMAIN:-colakdo.com}
+      - EMAIL=${LETSENCRYPT_EMAIL}
+      - DNS_PLUGIN=${DNS_PLUGIN:-dns-cloudflare}
+      - CERTBOT_LOGS=/var/log/letsencrypt
+      - RENEWAL_CRON_SCHEDULE=${RENEWAL_CRON_SCHEDULE:-0 */12 * * *}
+    entrypoint: ["/bin/sh"]
+    command: ["/scripts/certbot-manager.sh"]
+    networks:
+      - proxy-network
+    healthcheck:
+      test: ["CMD", "sh", "-c", "/scripts/renewal-monitor.sh status >/dev/null 2>&1"]
+      interval: 300s  # Check every 5 minutes
+      timeout: 30s
+      retries: 3
+      start_period: 180s
+
+  syslog:
+    image: alpine:latest
+    container_name: haproxy-syslog
+    restart: unless-stopped
+    volumes:
+      - ./logs:/var/log/haproxy
+    networks:
+      - proxy-network
+    command: >
+      sh -c "
+        apk add --no-cache rsyslog &&
+        mkdir -p /var/log/haproxy &&
+        
+        # Configure rsyslog for HAProxy
+        cat > /etc/rsyslog.conf << 'EOF'
+        # Basic rsyslog configuration
+        \$ModLoad imudp
+        \$UDPServerRun 514
+        \$UDPServerAddress 0.0.0.0
+        
+        # HAProxy log separation
+        # General logs
+        local0.info /var/log/haproxy/haproxy.log
+        
+        # Access logs (info level)
+        local0.info;local0.!err /var/log/haproxy/access.log
+        
+        # Error logs (error level and above)
+        local0.err /var/log/haproxy/error.log
+        
+        # Stop processing after HAProxy logs
+        local0.* stop
+        
+        # Default system logs
+        *.info;mail.none;authpriv.none;cron.none /var/log/messages
+        EOF
+        
+        # Create log files with proper permissions
+        touch /var/log/haproxy/haproxy.log /var/log/haproxy/access.log /var/log/haproxy/error.log &&
+        chmod 644 /var/log/haproxy/*.log &&
+        
+        echo 'Starting rsyslog daemon...' &&
+        rsyslogd -n -f /etc/rsyslog.conf
+      "
+
+  log-rotator:
+    image: alpine:latest
+    container_name: haproxy-log-rotator
+    restart: unless-stopped
+    volumes:
+      - ./logs:/var/log/haproxy
+      - ./config/logrotate.conf:/etc/logrotate.d/haproxy:ro
+    depends_on:
+      - syslog
+    command: >
+      sh -c "
+        apk add --no-cache logrotate &&
+        echo 'Starting log rotation daemon...' &&
+        while :; do
+          logrotate -f /etc/logrotate.d/haproxy &&
+          sleep 1h
+        done
+      "
+
+  monitor:
+    image: alpine:latest
+    container_name: haproxy-monitor
+    restart: unless-stopped
+    volumes:
+      - ./scripts:/scripts:ro
+      - ./logs:/var/log/haproxy
+      - ./certs:/etc/ssl/certs:ro
+    depends_on:
+      - haproxy
+    networks:
+      - proxy-network
+    environment:
+      - DOMAIN=${DOMAIN:-colakdo.com}
+      - CERT_PATH=/etc/ssl/certs/live/${DOMAIN:-colakdo.com}
+      - LOG_FILE=/var/log/haproxy/monitor.log
+      - WARNING_DAYS=${CERT_WARNING_DAYS:-30}
+      - CRITICAL_DAYS=${CERT_CRITICAL_DAYS:-7}
+      - ALERT_EMAIL=${ALERT_EMAIL:-}
+      - WEBHOOK_URL=${WEBHOOK_URL:-}
+      - HAPROXY_STATS_URL=http://haproxy:8404/stats
+      - HAPROXY_HEALTH_URL=http://haproxy:8404/health
+    command: >
+      sh -c "
+        apk add --no-cache curl openssl mailx &&
+        echo 'Starting HAProxy and certificate monitoring...' &&
+        
+        # Run certificate monitoring every hour
+        (while :; do
+          /scripts/certificate-expiration-monitor.sh monitor
+          sleep 3600
+        done) &
+        
+        # Run HAProxy monitoring every 5 minutes
+        /scripts/haproxy-monitor.sh continuous 300
+      "
+    healthcheck:
+      test: ["CMD", "sh", "-c", "/scripts/certificate-expiration-monitor.sh health"]
+      interval: 300s
+      timeout: 30s
+      retries: 3
+      start_period: 60s
+
+  maintenance-server:
+    image: python:3.11-alpine
+    container_name: haproxy-maintenance
+    restart: unless-stopped
+    volumes:
+      - ./scripts:/scripts:ro
+      - ./logs:/var/log/haproxy
+    networks:
+      - proxy-network
+    environment:
+      - MAINTENANCE_PORT=8080
+      - LOG_FILE=/var/log/haproxy/maintenance.log
+    command: >
+      sh -c "
+        echo 'Starting maintenance server...' &&
+        python3 /scripts/maintenance-server.py
+      "
+    healthcheck:
+      test: ["CMD", "sh", "-c", "wget -q --spider http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  backend-discovery:
+    image: alpine:latest
+    container_name: haproxy-backend-discovery
+    restart: unless-stopped
+    volumes:
+      - ./scripts:/scripts:ro
+      - ./config:/usr/local/etc/haproxy
+      - ./logs:/var/log/haproxy
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - haproxy
+      - maintenance-server
+    networks:
+      - proxy-network
+    environment:
+      - NETWORK_NAME=proxy-network
+      - CONFIG_DIR=/usr/local/etc/haproxy
+      - LOG_FILE=/var/log/haproxy/backend-discovery.log
+      - DISCOVERY_INTERVAL=${BACKEND_DISCOVERY_INTERVAL:-60}
+      - HAPROXY_CONTAINER_NAME=haproxy-proxy
+    command: >
+      sh -c "
+        apk add --no-cache curl docker-cli &&
+        echo 'Starting backend service discovery...' &&
+        
+        # Run initial discovery
+        /scripts/backend-discovery.sh &&
+        
+        # Run periodic discovery
+        while :; do
+          sleep \${DISCOVERY_INTERVAL:-60}
+          /scripts/backend-discovery.sh
+        done
+      "
+    healthcheck:
+      test: ["CMD", "sh", "-c", "pgrep -f backend-discovery.sh >/dev/null"]
+      interval: 120s
+      timeout: 30s
+      retries: 3
+      start_period: 60s
+
+  config-watcher:
+    image: alpine:latest
+    container_name: haproxy-config-watcher
+    restart: unless-stopped
+    volumes:
+      - ./config:/usr/local/etc/haproxy:ro
+      - ./scripts:/scripts:ro
+      - ./logs:/var/log/haproxy
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - haproxy
+      - backend-discovery
+    networks:
+      - proxy-network
+    environment:
+      - CONFIG_FILE=/usr/local/etc/haproxy/haproxy.cfg
+      - CONFIG_DIR=/usr/local/etc/haproxy
+      - LOG_FILE=/var/log/haproxy/config-watcher.log
+      - WATCH_INTERVAL=${CONFIG_WATCH_INTERVAL:-10}
+      - DEBOUNCE_TIME=${CONFIG_DEBOUNCE_TIME:-30}
+      - MAX_RELOAD_ATTEMPTS=${MAX_CONFIG_RELOAD_ATTEMPTS:-3}
+      - RELOAD_COOLDOWN=${CONFIG_RELOAD_COOLDOWN:-120}
+      - VERBOSE=${CONFIG_WATCHER_VERBOSE:-false}
+      - HAPROXY_CONTAINER_NAME=haproxy-proxy
+    command: >
+      sh -c "
+        apk add --no-cache curl docker-cli inotify-tools &&
+        echo 'Starting HAProxy configuration watcher...' &&
+        
+        # Create enhanced reload script that works with Docker
+        cat > /tmp/docker-haproxy-reload.sh << 'EOF'
+        #!/bin/bash
+        set -euo pipefail
+        
+        CONFIG_FILE=\"\$1\"
+        CONTAINER_NAME=\"\${HAPROXY_CONTAINER_NAME:-haproxy-proxy}\"
+        LOG_FILE=\"\${LOG_FILE:-/var/log/haproxy/config-watcher.log}\"
+        
+        log() {
+            echo \"[\$(date '+%Y-%m-%d %H:%M:%S')] [\$1] \$2\" >> \"\$LOG_FILE\"
+            echo \"[\$1] \$2\"
+        }
+        
+        # Validate configuration using HAProxy container
+        log \"INFO\" \"Validating configuration in container: \$CONTAINER_NAME\"
+        if docker exec \"\$CONTAINER_NAME\" haproxy -c -f \"\$CONFIG_FILE\" >/dev/null 2>&1; then
+            log \"INFO\" \"Configuration validation passed\"
+        else
+            log \"ERROR\" \"Configuration validation failed\"
+            exit 1
+        fi
+        
+        # Reload HAProxy gracefully using docker compose
+        log \"INFO\" \"Reloading HAProxy configuration\"
+        if docker exec \"\$CONTAINER_NAME\" sh -c '
+            if [ -f /var/run/haproxy.pid ]; then
+                OLD_PID=\$(cat /var/run/haproxy.pid)
+                haproxy -f '\"\$CONFIG_FILE\"' -p /var/run/haproxy.pid -sf \$OLD_PID
+            else
+                haproxy -f '\"\$CONFIG_FILE\"' -p /var/run/haproxy.pid -D
+            fi
+        '; then
+            log \"INFO\" \"HAProxy reload successful\"
+            
+            # Health check
+            sleep 5
+            if curl -s -f http://\$CONTAINER_NAME:8404/health >/dev/null 2>&1; then
+                log \"INFO\" \"Health check passed after reload\"
+                exit 0
+            else
+                log \"WARN\" \"Health check failed after reload\"
+                exit 2
+            fi
+        else
+            log \"ERROR\" \"HAProxy reload failed\"
+            exit 1
+        fi
+        EOF
+        
+        chmod +x /tmp/docker-haproxy-reload.sh &&
+        
+        # Start configuration watcher with Docker-aware reload script
+        RELOAD_SCRIPT=/tmp/docker-haproxy-reload.sh /scripts/haproxy-config-watcher.sh --daemon
+      "
+    healthcheck:
+      test: ["CMD", "sh", "-c", "pgrep -f haproxy-config-watcher.sh >/dev/null"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  proxy-network:
+    name: proxy-network
+    driver: bridge
+    attachable: true
+
+volumes:
+  certs:
+    driver: local
+  logs:
+    driver: local

@@ -1,0 +1,13 @@
+# Cloudflare API credentials for DNS-01 challenge
+# Copy this file to cloudflare.ini and fill in your credentials
+
+# Option 1: Global API Key (less secure)
+# dns_cloudflare_email = your-email@cloudflare.com
+# dns_cloudflare_api_key = your-global-api-key
+
+# Option 2: API Token (recommended - more secure)
+# Create a token with Zone:Zone:Read, Zone:DNS:Edit permissions
+dns_cloudflare_api_token = your-dns-api-token
+
+# File permissions should be 600 (read/write for owner only)
+# chmod 600 dns-credentials/cloudflare.ini

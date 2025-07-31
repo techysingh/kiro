@@ -1,0 +1,683 @@
+[2025-07-30 22:17:11] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:17:11] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:17:11] [DEBUG] Backup enabled: false
+[2025-07-30 22:17:11] [DEBUG] Reload enabled: false
+[2025-07-30 22:17:11] [DEBUG] Syntax only: true
+[2025-07-30 22:17:11] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:17:11] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:17:11] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:17:11] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:17:11] [DEBUG] Configuration file is readable
+[2025-07-30 22:17:11] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:17:11] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:17:11] [INFO] Syntax validation completed successfully
+[2025-07-30 22:18:10] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:10] [DEBUG] Config file: /tmp/haproxy-test-63064/haproxy.cfg
+[2025-07-30 22:18:10] [DEBUG] Backup enabled: false
+[2025-07-30 22:18:10] [DEBUG] Reload enabled: false
+[2025-07-30 22:18:10] [DEBUG] Syntax only: true
+[2025-07-30 22:18:10] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:10] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:18:10] [INFO] Configuration file found: /tmp/haproxy-test-63064/haproxy.cfg
+[2025-07-30 22:18:10] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:18:10] [DEBUG] Configuration file is readable
+[2025-07-30 22:18:10] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:18:10] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:18:10] [INFO] Syntax validation completed successfully
+[2025-07-30 22:18:10] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:10] [DEBUG] Config file: /tmp/haproxy-test-63064/invalid.cfg
+[2025-07-30 22:18:10] [DEBUG] Backup enabled: false
+[2025-07-30 22:18:10] [DEBUG] Reload enabled: false
+[2025-07-30 22:18:10] [DEBUG] Syntax only: true
+[2025-07-30 22:18:10] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:10] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:18:10] [INFO] Configuration file found: /tmp/haproxy-test-63064/invalid.cfg
+[2025-07-30 22:18:10] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:18:10] [DEBUG] Configuration file is readable
+[2025-07-30 22:18:10] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:18:10] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:18:10] [INFO] Syntax validation completed successfully
+[2025-07-30 22:18:28] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:28] [DEBUG] Config file: /tmp/haproxy-test-63143/haproxy.cfg
+[2025-07-30 22:18:28] [DEBUG] Backup enabled: false
+[2025-07-30 22:18:28] [DEBUG] Reload enabled: false
+[2025-07-30 22:18:28] [DEBUG] Syntax only: true
+[2025-07-30 22:18:28] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:28] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:18:28] [INFO] Configuration file found: /tmp/haproxy-test-63143/haproxy.cfg
+[2025-07-30 22:18:28] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:18:28] [DEBUG] Configuration file is readable
+[2025-07-30 22:18:28] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:18:28] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:18:28] [INFO] Syntax validation completed successfully
+[2025-07-30 22:18:28] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:28] [DEBUG] Config file: /tmp/haproxy-test-63143/invalid.cfg
+[2025-07-30 22:18:28] [DEBUG] Backup enabled: false
+[2025-07-30 22:18:28] [DEBUG] Reload enabled: false
+[2025-07-30 22:18:28] [DEBUG] Syntax only: false
+[2025-07-30 22:18:28] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:28] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:18:28] [INFO] Configuration file found: /tmp/haproxy-test-63143/invalid.cfg
+[2025-07-30 22:18:28] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:18:28] [DEBUG] Configuration file is readable
+[2025-07-30 22:18:28] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:18:28] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:18:28] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:18:28] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:18:28] [DEBUG] Found required section: global
+[2025-07-30 22:18:28] [ERROR] Missing required section: defaults
+[2025-07-30 22:18:28] [ERROR] Missing required section: frontend
+[2025-07-30 22:18:28] [ERROR] Missing required section: backend
+[2025-07-30 22:18:28] [ERROR] Required sections validation failed
+[2025-07-30 22:18:28] [DEBUG] Validating SSL configuration
+[2025-07-30 22:18:28] [WARN] SSL cipher configuration not found
+[2025-07-30 22:18:28] [WARN] SSL bind options not configured
+[2025-07-30 22:18:28] [WARN] No SSL certificate binding found
+[2025-07-30 22:18:28] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:28] [DEBUG] Config file: /tmp/haproxy-test-63143/haproxy.cfg
+[2025-07-30 22:18:28] [DEBUG] Backup enabled: false
+[2025-07-30 22:18:28] [DEBUG] Reload enabled: false
+[2025-07-30 22:18:28] [DEBUG] Syntax only: false
+[2025-07-30 22:18:29] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:29] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:18:29] [INFO] Configuration file found: /tmp/haproxy-test-63143/haproxy.cfg
+[2025-07-30 22:18:29] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:18:29] [DEBUG] Configuration file is readable
+[2025-07-30 22:18:29] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:18:29] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:18:29] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:18:29] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:18:29] [DEBUG] Found required section: global
+[2025-07-30 22:18:29] [DEBUG] Found required section: defaults
+[2025-07-30 22:18:29] [DEBUG] Found required section: frontend
+[2025-07-30 22:18:29] [DEBUG] Found required section: backend
+[2025-07-30 22:18:29] [DEBUG] Validating SSL configuration
+[2025-07-30 22:18:29] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:18:29] [DEBUG] SSL bind options found
+[2025-07-30 22:18:29] [DEBUG] SSL certificate binding found
+[2025-07-30 22:18:29] [DEBUG] Validating security headers configuration
+[2025-07-30 22:18:29] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:18:29] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:18:29] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:18:29] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:18:29] [DEBUG] Validating logging configuration
+[2025-07-30 22:18:29] [DEBUG] Logging configuration found
+[2025-07-30 22:18:29] [DEBUG] Log format configuration found
+[2025-07-30 22:18:29] [DEBUG] Validating timeout configuration
+[2025-07-30 22:18:29] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:18:29] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:18:29] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:18:29] [DEBUG] Validating backend configuration
+[2025-07-30 22:18:29] [DEBUG] Checking backend: root_backend
+[2025-07-30 22:18:29] [WARN] Backend 'root_backend' has no servers or error handling configured
+[2025-07-30 22:18:29] [DEBUG] Checking backend: www_backend
+[2025-07-30 22:18:29] [WARN] Backend 'www_backend' has no servers or error handling configured
+[2025-07-30 22:18:29] [DEBUG] Checking backend: api_backend
+[2025-07-30 22:18:29] [WARN] Backend 'api_backend' has no servers or error handling configured
+[2025-07-30 22:18:29] [DEBUG] Checking backend: app_backend
+[2025-07-30 22:18:29] [WARN] Backend 'app_backend' has no servers or error handling configured
+[2025-07-30 22:18:29] [DEBUG] Checking backend: admin_backend
+[2025-07-30 22:18:29] [WARN] Backend 'admin_backend' has no servers or error handling configured
+[2025-07-30 22:18:29] [DEBUG] Checking backend: demo_backend
+[2025-07-30 22:18:29] [WARN] Backend 'demo_backend' has no servers or error handling configured
+[2025-07-30 22:18:29] [DEBUG] Checking backend: default_backend
+[2025-07-30 22:18:29] [WARN] Backend 'default_backend' has no servers or error handling configured
+[2025-07-30 22:18:38] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:38] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:18:38] [DEBUG] Backup enabled: false
+[2025-07-30 22:18:38] [DEBUG] Reload enabled: false
+[2025-07-30 22:18:38] [DEBUG] Syntax only: false
+[2025-07-30 22:18:38] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:18:38] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:18:38] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:18:38] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:18:38] [DEBUG] Configuration file is readable
+[2025-07-30 22:18:38] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:18:38] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:18:38] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:18:38] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:18:39] [DEBUG] Found required section: global
+[2025-07-30 22:18:39] [DEBUG] Found required section: defaults
+[2025-07-30 22:18:39] [DEBUG] Found required section: frontend
+[2025-07-30 22:18:39] [DEBUG] Found required section: backend
+[2025-07-30 22:18:39] [DEBUG] Validating SSL configuration
+[2025-07-30 22:18:39] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:18:39] [DEBUG] SSL bind options found
+[2025-07-30 22:18:39] [DEBUG] SSL certificate binding found
+[2025-07-30 22:18:39] [DEBUG] Validating security headers configuration
+[2025-07-30 22:18:39] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:18:39] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:18:39] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:18:39] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:18:39] [DEBUG] Validating logging configuration
+[2025-07-30 22:18:39] [DEBUG] Logging configuration found
+[2025-07-30 22:18:39] [DEBUG] Log format configuration found
+[2025-07-30 22:18:39] [DEBUG] Validating timeout configuration
+[2025-07-30 22:18:39] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:18:39] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:18:39] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:18:39] [DEBUG] Validating backend configuration
+[2025-07-30 22:18:39] [DEBUG] Checking backend: root_backend
+[2025-07-30 22:18:39] [WARN] Backend 'root_backend' has no servers or error handling configured
+[2025-07-30 22:18:39] [DEBUG] Checking backend: www_backend
+[2025-07-30 22:18:39] [WARN] Backend 'www_backend' has no servers or error handling configured
+[2025-07-30 22:18:39] [DEBUG] Checking backend: api_backend
+[2025-07-30 22:18:39] [WARN] Backend 'api_backend' has no servers or error handling configured
+[2025-07-30 22:18:39] [DEBUG] Checking backend: app_backend
+[2025-07-30 22:18:39] [WARN] Backend 'app_backend' has no servers or error handling configured
+[2025-07-30 22:18:39] [DEBUG] Checking backend: admin_backend
+[2025-07-30 22:18:39] [WARN] Backend 'admin_backend' has no servers or error handling configured
+[2025-07-30 22:18:39] [DEBUG] Checking backend: demo_backend
+[2025-07-30 22:18:39] [WARN] Backend 'demo_backend' has no servers or error handling configured
+[2025-07-30 22:18:39] [DEBUG] Checking backend: default_backend
+[2025-07-30 22:18:39] [WARN] Backend 'default_backend' has no servers or error handling configured
+[2025-07-30 22:19:08] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:19:08] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:19:08] [DEBUG] Backup enabled: false
+[2025-07-30 22:19:08] [DEBUG] Reload enabled: false
+[2025-07-30 22:19:08] [DEBUG] Syntax only: false
+[2025-07-30 22:19:08] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:19:08] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:19:09] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:19:09] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:19:09] [DEBUG] Configuration file is readable
+[2025-07-30 22:19:09] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:19:09] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:19:09] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:19:09] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:19:09] [DEBUG] Found required section: global
+[2025-07-30 22:19:09] [DEBUG] Found required section: defaults
+[2025-07-30 22:19:09] [DEBUG] Found required section: frontend
+[2025-07-30 22:19:09] [DEBUG] Found required section: backend
+[2025-07-30 22:19:09] [DEBUG] Validating SSL configuration
+[2025-07-30 22:19:09] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:19:09] [DEBUG] SSL bind options found
+[2025-07-30 22:19:09] [DEBUG] SSL certificate binding found
+[2025-07-30 22:19:09] [DEBUG] Validating security headers configuration
+[2025-07-30 22:19:09] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:19:09] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:19:09] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:19:09] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:19:09] [DEBUG] Validating logging configuration
+[2025-07-30 22:19:09] [DEBUG] Logging configuration found
+[2025-07-30 22:19:09] [DEBUG] Log format configuration found
+[2025-07-30 22:19:09] [DEBUG] Validating timeout configuration
+[2025-07-30 22:19:09] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:19:09] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:19:09] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:19:09] [DEBUG] Validating backend configuration
+[2025-07-30 22:19:09] [DEBUG] Checking backend: root_backend
+[2025-07-30 22:19:24] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:19:24] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:19:24] [DEBUG] Backup enabled: false
+[2025-07-30 22:19:24] [DEBUG] Reload enabled: false
+[2025-07-30 22:19:24] [DEBUG] Syntax only: false
+[2025-07-30 22:19:24] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:19:24] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:19:24] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:19:24] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:19:24] [DEBUG] Configuration file is readable
+[2025-07-30 22:19:24] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:19:24] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:19:24] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:19:24] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:19:24] [DEBUG] Found required section: global
+[2025-07-30 22:19:24] [DEBUG] Found required section: defaults
+[2025-07-30 22:19:24] [DEBUG] Found required section: frontend
+[2025-07-30 22:19:24] [DEBUG] Found required section: backend
+[2025-07-30 22:19:24] [DEBUG] Validating SSL configuration
+[2025-07-30 22:19:24] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:19:24] [DEBUG] SSL bind options found
+[2025-07-30 22:19:24] [DEBUG] SSL certificate binding found
+[2025-07-30 22:19:24] [DEBUG] Validating security headers configuration
+[2025-07-30 22:19:24] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:19:24] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:19:24] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:19:24] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:19:24] [DEBUG] Validating logging configuration
+[2025-07-30 22:19:24] [DEBUG] Logging configuration found
+[2025-07-30 22:19:24] [DEBUG] Log format configuration found
+[2025-07-30 22:19:24] [DEBUG] Validating timeout configuration
+[2025-07-30 22:19:24] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:19:24] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:19:24] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:19:24] [DEBUG] Validating backend configuration
+[2025-07-30 22:19:24] [DEBUG] Checking backend: root_backend
+[2025-07-30 22:19:49] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:19:49] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:19:49] [DEBUG] Backup enabled: false
+[2025-07-30 22:19:49] [DEBUG] Reload enabled: false
+[2025-07-30 22:19:49] [DEBUG] Syntax only: false
+[2025-07-30 22:19:49] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:19:49] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:19:49] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:19:49] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:19:49] [DEBUG] Configuration file is readable
+[2025-07-30 22:19:49] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:19:49] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:19:49] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:19:49] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:19:49] [DEBUG] Found required section: global
+[2025-07-30 22:19:49] [DEBUG] Found required section: defaults
+[2025-07-30 22:19:49] [DEBUG] Found required section: frontend
+[2025-07-30 22:19:49] [DEBUG] Found required section: backend
+[2025-07-30 22:19:49] [DEBUG] Validating SSL configuration
+[2025-07-30 22:19:49] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:19:49] [DEBUG] SSL bind options found
+[2025-07-30 22:19:49] [DEBUG] SSL certificate binding found
+[2025-07-30 22:19:49] [DEBUG] Validating security headers configuration
+[2025-07-30 22:19:49] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:19:49] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:19:49] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:19:50] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:19:50] [DEBUG] Validating logging configuration
+[2025-07-30 22:19:50] [DEBUG] Logging configuration found
+[2025-07-30 22:19:50] [DEBUG] Log format configuration found
+[2025-07-30 22:19:50] [DEBUG] Validating timeout configuration
+[2025-07-30 22:19:50] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:19:50] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:19:50] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:19:50] [DEBUG] Validating backend configuration
+[2025-07-30 22:19:50] [DEBUG] Checking backend: root_backend
+[2025-07-30 22:20:43] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:20:43] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:20:43] [DEBUG] Backup enabled: false
+[2025-07-30 22:20:43] [DEBUG] Reload enabled: false
+[2025-07-30 22:20:43] [DEBUG] Syntax only: false
+[2025-07-30 22:20:43] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:20:43] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:20:43] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:20:43] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:20:43] [DEBUG] Configuration file is readable
+[2025-07-30 22:20:43] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:20:43] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:20:43] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:20:43] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:20:43] [DEBUG] Found required section: global
+[2025-07-30 22:20:43] [DEBUG] Found required section: defaults
+[2025-07-30 22:20:43] [DEBUG] Found required section: frontend
+[2025-07-30 22:20:43] [DEBUG] Found required section: backend
+[2025-07-30 22:20:43] [DEBUG] Validating SSL configuration
+[2025-07-30 22:20:44] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:20:44] [DEBUG] SSL bind options found
+[2025-07-30 22:20:44] [DEBUG] SSL certificate binding found
+[2025-07-30 22:20:44] [DEBUG] Validating security headers configuration
+[2025-07-30 22:20:44] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:20:44] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:20:44] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:20:44] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:20:44] [DEBUG] Validating logging configuration
+[2025-07-30 22:20:44] [DEBUG] Logging configuration found
+[2025-07-30 22:20:44] [DEBUG] Log format configuration found
+[2025-07-30 22:20:44] [DEBUG] Validating timeout configuration
+[2025-07-30 22:20:44] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:20:44] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:20:44] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:20:44] [DEBUG] Validating backend configuration
+[2025-07-30 22:20:44] [DEBUG] Checking backend: root_backend
+[2025-07-30 22:21:02] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:02] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:21:02] [DEBUG] Backup enabled: false
+[2025-07-30 22:21:02] [DEBUG] Reload enabled: false
+[2025-07-30 22:21:02] [DEBUG] Syntax only: false
+[2025-07-30 22:21:03] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:03] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:21:03] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:21:03] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:21:03] [DEBUG] Configuration file is readable
+[2025-07-30 22:21:03] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:21:03] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:21:03] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:21:03] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:21:03] [DEBUG] Found required section: global
+[2025-07-30 22:21:03] [DEBUG] Found required section: defaults
+[2025-07-30 22:21:03] [DEBUG] Found required section: frontend
+[2025-07-30 22:21:03] [DEBUG] Found required section: backend
+[2025-07-30 22:21:03] [DEBUG] Validating SSL configuration
+[2025-07-30 22:21:03] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:21:03] [DEBUG] SSL bind options found
+[2025-07-30 22:21:03] [DEBUG] SSL certificate binding found
+[2025-07-30 22:21:03] [DEBUG] Validating security headers configuration
+[2025-07-30 22:21:03] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:21:03] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:21:03] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:21:03] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:21:03] [DEBUG] Validating logging configuration
+[2025-07-30 22:21:03] [DEBUG] Logging configuration found
+[2025-07-30 22:21:03] [DEBUG] Log format configuration found
+[2025-07-30 22:21:03] [DEBUG] Validating timeout configuration
+[2025-07-30 22:21:03] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:21:03] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:21:03] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:21:03] [DEBUG] Validating backend configuration
+[2025-07-30 22:21:03] [DEBUG] Found        7 backends
+[2025-07-30 22:21:03] [DEBUG] Backend configuration appears valid
+[2025-07-30 22:21:03] [INFO] Validation completed
+[2025-07-30 22:21:03] [INFO] Total errors: 0
+[2025-07-30 22:21:03] [INFO] Total warnings: 0
+[2025-07-30 22:21:03] [DEBUG] Exit code will be: 0
+[2025-07-30 22:21:03] [INFO] Configuration validation passed without errors or warnings
+[2025-07-30 22:21:13] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:13] [DEBUG] Config file: /tmp/haproxy-test-64000/haproxy.cfg
+[2025-07-30 22:21:13] [DEBUG] Backup enabled: false
+[2025-07-30 22:21:13] [DEBUG] Reload enabled: false
+[2025-07-30 22:21:13] [DEBUG] Syntax only: true
+[2025-07-30 22:21:13] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:13] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:21:13] [INFO] Configuration file found: /tmp/haproxy-test-64000/haproxy.cfg
+[2025-07-30 22:21:14] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:21:14] [DEBUG] Configuration file is readable
+[2025-07-30 22:21:14] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:21:14] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:21:14] [INFO] Syntax validation completed successfully
+[2025-07-30 22:21:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:14] [DEBUG] Config file: /tmp/haproxy-test-64000/invalid.cfg
+[2025-07-30 22:21:14] [DEBUG] Backup enabled: false
+[2025-07-30 22:21:14] [DEBUG] Reload enabled: false
+[2025-07-30 22:21:14] [DEBUG] Syntax only: false
+[2025-07-30 22:21:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:14] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:21:14] [INFO] Configuration file found: /tmp/haproxy-test-64000/invalid.cfg
+[2025-07-30 22:21:14] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:21:14] [DEBUG] Configuration file is readable
+[2025-07-30 22:21:14] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:21:14] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:21:14] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:21:14] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:21:14] [DEBUG] Found required section: global
+[2025-07-30 22:21:14] [ERROR] Missing required section: defaults
+[2025-07-30 22:21:14] [ERROR] Missing required section: frontend
+[2025-07-30 22:21:14] [ERROR] Missing required section: backend
+[2025-07-30 22:21:14] [ERROR] Required sections validation failed
+[2025-07-30 22:21:14] [DEBUG] Validating SSL configuration
+[2025-07-30 22:21:14] [WARN] SSL cipher configuration not found
+[2025-07-30 22:21:14] [WARN] SSL bind options not configured
+[2025-07-30 22:21:14] [WARN] No SSL certificate binding found
+[2025-07-30 22:21:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:14] [DEBUG] Config file: /tmp/haproxy-test-64000/haproxy.cfg
+[2025-07-30 22:21:14] [DEBUG] Backup enabled: false
+[2025-07-30 22:21:14] [DEBUG] Reload enabled: false
+[2025-07-30 22:21:14] [DEBUG] Syntax only: false
+[2025-07-30 22:21:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:14] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:21:14] [INFO] Configuration file found: /tmp/haproxy-test-64000/haproxy.cfg
+[2025-07-30 22:21:14] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:21:14] [DEBUG] Configuration file is readable
+[2025-07-30 22:21:14] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:21:14] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:21:14] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:21:14] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:21:14] [DEBUG] Found required section: global
+[2025-07-30 22:21:14] [DEBUG] Found required section: defaults
+[2025-07-30 22:21:14] [DEBUG] Found required section: frontend
+[2025-07-30 22:21:14] [DEBUG] Found required section: backend
+[2025-07-30 22:21:14] [DEBUG] Validating SSL configuration
+[2025-07-30 22:21:14] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:21:14] [DEBUG] SSL bind options found
+[2025-07-30 22:21:14] [DEBUG] SSL certificate binding found
+[2025-07-30 22:21:14] [DEBUG] Validating security headers configuration
+[2025-07-30 22:21:14] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:21:14] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:21:14] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:21:14] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:21:14] [DEBUG] Validating logging configuration
+[2025-07-30 22:21:14] [DEBUG] Logging configuration found
+[2025-07-30 22:21:14] [DEBUG] Log format configuration found
+[2025-07-30 22:21:14] [DEBUG] Validating timeout configuration
+[2025-07-30 22:21:14] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:21:14] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:21:14] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:21:14] [DEBUG] Validating backend configuration
+[2025-07-30 22:21:14] [DEBUG] Found        7 backends
+[2025-07-30 22:21:14] [DEBUG] Backend configuration appears valid
+[2025-07-30 22:21:14] [INFO] Validation completed
+[2025-07-30 22:21:14] [INFO] Total errors: 0
+[2025-07-30 22:21:14] [INFO] Total warnings: 0
+[2025-07-30 22:21:14] [DEBUG] Exit code will be: 0
+[2025-07-30 22:21:14] [INFO] Configuration validation passed without errors or warnings
+[2025-07-30 22:21:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:14] [DEBUG] Config file: /tmp/haproxy-test-64000/haproxy.cfg
+[2025-07-30 22:21:14] [DEBUG] Backup enabled: true
+[2025-07-30 22:21:14] [DEBUG] Reload enabled: false
+[2025-07-30 22:21:14] [DEBUG] Syntax only: false
+[2025-07-30 22:21:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:14] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:21:14] [INFO] Configuration file found: /tmp/haproxy-test-64000/haproxy.cfg
+[2025-07-30 22:21:14] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:21:14] [DEBUG] Configuration file is readable
+[2025-07-30 22:21:14] [INFO] Creating configuration backup
+[2025-07-30 22:21:14] [INFO] Backup created: /tmp/haproxy-test-64000/backups/haproxy.cfg.20250730_222114
+[2025-07-30 22:21:14] [DEBUG] Old backups cleaned up
+[2025-07-30 22:21:14] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:21:14] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:21:14] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:21:14] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:21:14] [DEBUG] Found required section: global
+[2025-07-30 22:21:14] [DEBUG] Found required section: defaults
+[2025-07-30 22:21:15] [DEBUG] Found required section: frontend
+[2025-07-30 22:21:15] [DEBUG] Found required section: backend
+[2025-07-30 22:21:15] [DEBUG] Validating SSL configuration
+[2025-07-30 22:21:15] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:21:15] [DEBUG] SSL bind options found
+[2025-07-30 22:21:15] [DEBUG] SSL certificate binding found
+[2025-07-30 22:21:15] [DEBUG] Validating security headers configuration
+[2025-07-30 22:21:15] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:21:15] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:21:15] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:21:15] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:21:15] [DEBUG] Validating logging configuration
+[2025-07-30 22:21:15] [DEBUG] Logging configuration found
+[2025-07-30 22:21:15] [DEBUG] Log format configuration found
+[2025-07-30 22:21:15] [DEBUG] Validating timeout configuration
+[2025-07-30 22:21:15] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:21:15] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:21:15] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:21:15] [DEBUG] Validating backend configuration
+[2025-07-30 22:21:15] [DEBUG] Found        7 backends
+[2025-07-30 22:21:15] [DEBUG] Backend configuration appears valid
+[2025-07-30 22:21:15] [INFO] Validation completed
+[2025-07-30 22:21:15] [INFO] Total errors: 0
+[2025-07-30 22:21:15] [INFO] Total warnings: 0
+[2025-07-30 22:21:15] [DEBUG] Exit code will be: 0
+[2025-07-30 22:21:15] [INFO] Configuration validation passed without errors or warnings
+[2025-07-30 22:21:38] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:38] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:21:38] [DEBUG] Backup enabled: false
+[2025-07-30 22:21:38] [DEBUG] Reload enabled: false
+[2025-07-30 22:21:38] [DEBUG] Syntax only: true
+[2025-07-30 22:21:38] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:21:38] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:21:38] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:21:38] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:21:38] [DEBUG] Configuration file is readable
+[2025-07-30 22:21:38] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:21:38] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:21:38] [INFO] Syntax validation completed successfully
+[2025-07-30 22:22:13] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:13] [DEBUG] Config file: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:13] [DEBUG] Backup enabled: false
+[2025-07-30 22:22:13] [DEBUG] Reload enabled: false
+[2025-07-30 22:22:13] [DEBUG] Syntax only: true
+[2025-07-30 22:22:13] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:13] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:22:13] [INFO] Configuration file found: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:13] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:22:13] [DEBUG] Configuration file is readable
+[2025-07-30 22:22:13] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:22:13] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:22:13] [INFO] Syntax validation completed successfully
+[2025-07-30 22:22:13] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:13] [DEBUG] Config file: /tmp/haproxy-test-64362/invalid.cfg
+[2025-07-30 22:22:13] [DEBUG] Backup enabled: false
+[2025-07-30 22:22:13] [DEBUG] Reload enabled: false
+[2025-07-30 22:22:13] [DEBUG] Syntax only: false
+[2025-07-30 22:22:13] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:13] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:22:13] [INFO] Configuration file found: /tmp/haproxy-test-64362/invalid.cfg
+[2025-07-30 22:22:13] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:22:13] [DEBUG] Configuration file is readable
+[2025-07-30 22:22:13] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:22:13] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:22:13] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:22:13] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:22:13] [DEBUG] Found required section: global
+[2025-07-30 22:22:13] [ERROR] Missing required section: defaults
+[2025-07-30 22:22:13] [ERROR] Missing required section: frontend
+[2025-07-30 22:22:13] [ERROR] Missing required section: backend
+[2025-07-30 22:22:13] [ERROR] Required sections validation failed
+[2025-07-30 22:22:13] [DEBUG] Validating SSL configuration
+[2025-07-30 22:22:13] [WARN] SSL cipher configuration not found
+[2025-07-30 22:22:13] [WARN] SSL bind options not configured
+[2025-07-30 22:22:13] [WARN] No SSL certificate binding found
+[2025-07-30 22:22:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:14] [DEBUG] Config file: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:14] [DEBUG] Backup enabled: false
+[2025-07-30 22:22:14] [DEBUG] Reload enabled: false
+[2025-07-30 22:22:14] [DEBUG] Syntax only: false
+[2025-07-30 22:22:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:14] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:22:14] [INFO] Configuration file found: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:14] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:22:14] [DEBUG] Configuration file is readable
+[2025-07-30 22:22:14] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:22:14] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:22:14] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:22:14] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:22:14] [DEBUG] Found required section: global
+[2025-07-30 22:22:14] [DEBUG] Found required section: defaults
+[2025-07-30 22:22:14] [DEBUG] Found required section: frontend
+[2025-07-30 22:22:14] [DEBUG] Found required section: backend
+[2025-07-30 22:22:14] [DEBUG] Validating SSL configuration
+[2025-07-30 22:22:14] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:22:14] [DEBUG] SSL bind options found
+[2025-07-30 22:22:14] [DEBUG] SSL certificate binding found
+[2025-07-30 22:22:14] [DEBUG] Validating security headers configuration
+[2025-07-30 22:22:14] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:22:14] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:22:14] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:22:14] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:22:14] [DEBUG] Validating logging configuration
+[2025-07-30 22:22:14] [DEBUG] Logging configuration found
+[2025-07-30 22:22:14] [DEBUG] Log format configuration found
+[2025-07-30 22:22:14] [DEBUG] Validating timeout configuration
+[2025-07-30 22:22:14] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:22:14] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:22:14] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:22:14] [DEBUG] Validating backend configuration
+[2025-07-30 22:22:14] [DEBUG] Found        7 backends
+[2025-07-30 22:22:14] [DEBUG] Backend configuration appears valid
+[2025-07-30 22:22:14] [INFO] Validation completed
+[2025-07-30 22:22:14] [INFO] Total errors: 0
+[2025-07-30 22:22:14] [INFO] Total warnings: 0
+[2025-07-30 22:22:14] [DEBUG] Exit code will be: 0
+[2025-07-30 22:22:14] [INFO] Configuration validation passed without errors or warnings
+[2025-07-30 22:22:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:14] [DEBUG] Config file: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:14] [DEBUG] Backup enabled: true
+[2025-07-30 22:22:14] [DEBUG] Reload enabled: false
+[2025-07-30 22:22:14] [DEBUG] Syntax only: false
+[2025-07-30 22:22:14] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:14] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:22:14] [INFO] Configuration file found: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:14] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:22:14] [DEBUG] Configuration file is readable
+[2025-07-30 22:22:14] [INFO] Creating configuration backup
+[2025-07-30 22:22:14] [INFO] Backup created: /tmp/haproxy-test-64362/backups/haproxy.cfg.20250730_222214
+[2025-07-30 22:22:14] [DEBUG] Old backups cleaned up
+[2025-07-30 22:22:14] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:22:14] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:22:14] [INFO] Performing comprehensive configuration validation
+[2025-07-30 22:22:14] [DEBUG] Checking for required configuration sections
+[2025-07-30 22:22:14] [DEBUG] Found required section: global
+[2025-07-30 22:22:14] [DEBUG] Found required section: defaults
+[2025-07-30 22:22:14] [DEBUG] Found required section: frontend
+[2025-07-30 22:22:14] [DEBUG] Found required section: backend
+[2025-07-30 22:22:14] [DEBUG] Validating SSL configuration
+[2025-07-30 22:22:14] [DEBUG] SSL cipher configuration found
+[2025-07-30 22:22:14] [DEBUG] SSL bind options found
+[2025-07-30 22:22:14] [DEBUG] SSL certificate binding found
+[2025-07-30 22:22:14] [DEBUG] Validating security headers configuration
+[2025-07-30 22:22:14] [DEBUG] Security header found: Strict-Transport-Security
+[2025-07-30 22:22:14] [DEBUG] Security header found: X-Content-Type-Options
+[2025-07-30 22:22:14] [DEBUG] Security header found: X-Frame-Options
+[2025-07-30 22:22:14] [DEBUG] Security header found: X-XSS-Protection
+[2025-07-30 22:22:14] [DEBUG] Validating logging configuration
+[2025-07-30 22:22:14] [DEBUG] Logging configuration found
+[2025-07-30 22:22:14] [DEBUG] Log format configuration found
+[2025-07-30 22:22:14] [DEBUG] Validating timeout configuration
+[2025-07-30 22:22:14] [DEBUG] Timeout found: timeout connect
+[2025-07-30 22:22:14] [DEBUG] Timeout found: timeout client
+[2025-07-30 22:22:14] [DEBUG] Timeout found: timeout server
+[2025-07-30 22:22:14] [DEBUG] Validating backend configuration
+[2025-07-30 22:22:14] [DEBUG] Found        7 backends
+[2025-07-30 22:22:14] [DEBUG] Backend configuration appears valid
+[2025-07-30 22:22:14] [INFO] Validation completed
+[2025-07-30 22:22:14] [INFO] Total errors: 0
+[2025-07-30 22:22:14] [INFO] Total warnings: 0
+[2025-07-30 22:22:14] [DEBUG] Exit code will be: 0
+[2025-07-30 22:22:14] [INFO] Configuration validation passed without errors or warnings
+[2025-07-30 22:22:15] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:15] [DEBUG] Config file: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:15] [DEBUG] Backup enabled: false
+[2025-07-30 22:22:15] [DEBUG] Reload enabled: false
+[2025-07-30 22:22:15] [DEBUG] Syntax only: true
+[2025-07-30 22:22:15] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:15] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:22:15] [INFO] Configuration file found: /tmp/haproxy-test-64362/haproxy.cfg
+[2025-07-30 22:22:15] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:22:15] [DEBUG] Configuration file is readable
+[2025-07-30 22:22:15] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:22:15] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:22:15] [INFO] Syntax validation completed successfully
+[2025-07-30 22:22:15] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:15] [DEBUG] Config file: /tmp/haproxy-test-64362/invalid_reload.cfg
+[2025-07-30 22:22:15] [DEBUG] Backup enabled: false
+[2025-07-30 22:22:15] [DEBUG] Reload enabled: false
+[2025-07-30 22:22:15] [DEBUG] Syntax only: true
+[2025-07-30 22:22:15] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:15] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:22:15] [INFO] Configuration file found: /tmp/haproxy-test-64362/invalid_reload.cfg
+[2025-07-30 22:22:15] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:22:15] [DEBUG] Configuration file is readable
+[2025-07-30 22:22:15] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:22:15] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:22:15] [INFO] Syntax validation completed successfully
+[2025-07-30 22:22:28] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:28] [DEBUG] Config file: /tmp/invalid_test.cfg
+[2025-07-30 22:22:28] [DEBUG] Backup enabled: false
+[2025-07-30 22:22:28] [DEBUG] Reload enabled: false
+[2025-07-30 22:22:28] [DEBUG] Syntax only: true
+[2025-07-30 22:22:28] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:22:28] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:22:28] [INFO] Configuration file found: /tmp/invalid_test.cfg
+[2025-07-30 22:22:28] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:22:28] [DEBUG] Configuration file is readable
+[2025-07-30 22:22:28] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:22:28] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:22:28] [INFO] Syntax validation completed successfully
+[2025-07-30 22:29:30] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:29:30] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:29:30] [DEBUG] Backup enabled: false
+[2025-07-30 22:29:30] [DEBUG] Reload enabled: false
+[2025-07-30 22:29:30] [DEBUG] Syntax only: true
+[2025-07-30 22:29:30] [INFO] Starting HAProxy configuration validation
+[2025-07-30 22:29:30] [DEBUG] Checking if configuration file exists
+[2025-07-30 22:29:30] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-30 22:29:30] [DEBUG] Checking if configuration file is readable
+[2025-07-30 22:29:30] [DEBUG] Configuration file is readable
+[2025-07-30 22:29:30] [INFO] Performing HAProxy syntax validation
+[2025-07-30 22:29:30] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-30 22:29:30] [INFO] Syntax validation completed successfully
+[2025-07-31 04:59:40] [INFO] Starting HAProxy configuration validation
+[2025-07-31 04:59:40] [DEBUG] Config file: demo.colakdo.com/config/haproxy.cfg
+[2025-07-31 04:59:40] [DEBUG] Backup enabled: false
+[2025-07-31 04:59:40] [DEBUG] Reload enabled: false
+[2025-07-31 04:59:40] [DEBUG] Syntax only: true
+[2025-07-31 04:59:40] [INFO] Starting HAProxy configuration validation
+[2025-07-31 04:59:40] [DEBUG] Checking if configuration file exists
+[2025-07-31 04:59:40] [INFO] Configuration file found: demo.colakdo.com/config/haproxy.cfg
+[2025-07-31 04:59:40] [DEBUG] Checking if configuration file is readable
+[2025-07-31 04:59:40] [DEBUG] Configuration file is readable
+[2025-07-31 04:59:40] [INFO] Performing HAProxy syntax validation
+[2025-07-31 04:59:40] [WARN] HAProxy binary not found, skipping syntax validation
+[2025-07-31 04:59:40] [INFO] Syntax validation completed successfully
