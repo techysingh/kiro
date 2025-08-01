@@ -1,0 +1,22 @@
+# GoDaddy DNS credentials for DNS-01 challenge
+# Copy this file to godaddy.ini and fill in your credentials
+
+# GoDaddy API Key and Secret
+# Get these from: https://developer.godaddy.com/keys
+dns_godaddy_key = your-godaddy-api-key
+dns_godaddy_secret = your-godaddy-api-secret
+
+# Optional: GoDaddy API endpoint (default is production)
+# For testing, you can use: https://api.ote-godaddy.com
+# dns_godaddy_endpoint = https://api.godaddy.com
+
+# File permissions should be 600 (read/write for owner only)
+# chmod 600 dns-credentials/godaddy.ini
+
+# Instructions:
+# 1. Go to https://developer.godaddy.com/keys
+# 2. Create a new API key with the following permissions:
+#    - Domain: Read/Write
+# 3. Copy the Key and Secret to this file
+# 4. Set proper permissions: chmod 600 dns-credentials/godaddy.ini
+# 5. Update your .env file with DNS_PLUGIN=dns-godaddy

@@ -16,6 +16,7 @@ SUPPORTED_PROVIDERS=(
     "digitalocean"
     "google"
     "ovh"
+    "godaddy"
 )
 
 # Function to display usage
@@ -91,6 +92,41 @@ setup_route53() {
     echo "  - route53:GetChange"
     echo "  - route53:ChangeResourceRecordSets"
     echo "  - route53:ListHostedZonesByName"
+    echo ""
+}
+
+# Function to setup GoDaddy
+setup_godaddy() {
+    echo "Setting up GoDaddy DNS provider..."
+    
+    local creds_file="$DNS_CREDS_DIR/godaddy.ini"
+    local example_file="$DNS_CREDS_DIR/godaddy.ini.example"
+    
+    if [[ -f "$creds_file" ]]; then
+        echo "GoDaddy credentials file already exists: $creds_file"
+        read -p "Do you want to overwrite it? (y/N): " -r
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Keeping existing credentials file."
+            return 0
+        fi
+    fi
+    
+    echo "Creating GoDaddy credentials file..."
+    cp "$example_file" "$creds_file"
+    chmod 600 "$creds_file"
+    
+    echo ""
+    echo "Please edit $creds_file and add your GoDaddy API credentials."
+    echo "You can get your API key and secret from: https://developer.godaddy.com/keys"
+    echo ""
+    echo "Required steps:"
+    echo "  1. Go to https://developer.godaddy.com/keys"
+    echo "  2. Create a new API key with Domain permissions"
+    echo "  3. Copy the Key and Secret to the credentials file"
+    echo "  4. Ensure the file has correct permissions: chmod 600 $creds_file"
+    echo ""
+    echo "Note: GoDaddy DNS challenges may take longer than other providers."
+    echo "The system will automatically wait for DNS propagation."
     echo ""
 }
 
@@ -193,6 +229,9 @@ main() {
             ;;
         "route53")
             setup_route53
+            ;;
+        "godaddy")
+            setup_godaddy
             ;;
         *)
             echo "Provider $provider is supported but setup function not implemented yet."
