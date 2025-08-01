@@ -142,7 +142,7 @@ analyze_backend_health() {
     fi
 }
 
-# Send alert (placeholder for integration with monitoring systems)
+# Send alert and trigger recovery if needed
 send_alert() {
     local severity="$1"
     local message="$2"
@@ -152,23 +152,48 @@ send_alert() {
     # Log alert
     log "ALERT [$severity]: $message"
     
-    # Here you can integrate with external alerting systems
-    # Examples:
-    # - Send email via sendmail/postfix
-    # - Send to Slack webhook
-    # - Send to PagerDuty
-    # - Write to syslog
-    
-    # For now, write to alert log file
+    # Write to alert log file
     echo "[$timestamp] [$severity] $message" >> "/var/log/haproxy/alerts.log"
     
-    # Example webhook notification (uncomment and configure as needed)
-    # if [[ -n "${WEBHOOK_URL:-}" ]]; then
-    #     curl -X POST "$WEBHOOK_URL" \
-    #         -H "Content-Type: application/json" \
-    #         -d "{\"severity\":\"$severity\",\"message\":\"$message\",\"timestamp\":\"$timestamp\"}" \
-    #         >/dev/null 2>&1 || true
-    # fi
+    # Email notification
+    if [[ -n "${ALERT_EMAIL:-}" ]] && command -v mail >/dev/null 2>&1; then
+        echo "$message" | mail -s "[$severity] HAProxy Alert - $(hostname)" "$ALERT_EMAIL"
+        log "Email alert sent to $ALERT_EMAIL"
+    fi
+    
+    # Webhook notification
+    if [[ -n "${WEBHOOK_URL:-}" ]]; then
+        local payload=$(cat <<EOF
+{
+    "timestamp": "$timestamp",
+    "severity": "$severity",
+    "message": "$message",
+    "hostname": "$(hostname)",
+    "service": "haproxy-monitor",
+    "alert_type": "backend_health"
+}
+EOF
+        )
+        
+        if curl -s -X POST "$WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d "$payload" >/dev/null 2>&1; then
+            log "Webhook alert sent successfully"
+        else
+            log "Failed to send webhook alert"
+        fi
+    fi
+    
+    # Trigger error recovery for critical alerts
+    if [[ "$severity" == "CRITICAL" ]]; then
+        log "Triggering error recovery due to critical alert"
+        if [[ -x "/scripts/error-recovery-manager.sh" ]]; then
+            /scripts/error-recovery-manager.sh --force &
+            log "Error recovery manager triggered"
+        else
+            log "Error recovery manager not found or not executable"
+        fi
+    fi
 }
 
 # Get HAProxy process information

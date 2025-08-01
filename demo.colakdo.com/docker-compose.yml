@@ -28,11 +28,18 @@ services:
       - WEBHOOK_URL=${WEBHOOK_URL:-}
       - BACKEND_DISCOVERY_ENABLED=${BACKEND_DISCOVERY_ENABLED:-true}
     healthcheck:
-      test: ["CMD", "sh", "-c", "curl -f http://localhost:8404/health >/dev/null 2>&1"]
+      test: ["CMD", "sh", "-c", "/scripts/service-health-checker.sh haproxy"]
       interval: 30s
-      timeout: 10s
+      timeout: 15s
       retries: 3
       start_period: 40s
+    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+        window: 120s
 
   certbot:
     # Dynamic image selection based on DNS provider
@@ -57,11 +64,18 @@ services:
     networks:
       - proxy-network
     healthcheck:
-      test: ["CMD", "sh", "-c", "/scripts/renewal-monitor.sh status >/dev/null 2>&1"]
+      test: ["CMD", "sh", "-c", "/scripts/service-health-checker.sh certbot"]
       interval: 300s  # Check every 5 minutes
       timeout: 30s
       retries: 3
       start_period: 180s
+    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+        max_attempts: 3
+        window: 300s
 
   syslog:
     image: alpine:latest
@@ -164,11 +178,18 @@ services:
         /scripts/haproxy-monitor.sh continuous 300
       "
     healthcheck:
-      test: ["CMD", "sh", "-c", "/scripts/certificate-expiration-monitor.sh health"]
+      test: ["CMD", "sh", "-c", "/scripts/service-health-checker.sh monitor"]
       interval: 300s
       timeout: 30s
       retries: 3
       start_period: 60s
+    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 5
+        window: 180s
 
   maintenance-server:
     image: python:3.11-alpine
@@ -188,11 +209,18 @@ services:
         python3 /scripts/maintenance-server.py
       "
     healthcheck:
-      test: ["CMD", "sh", "-c", "wget -q --spider http://localhost:8080/health || exit 1"]
+      test: ["CMD", "sh", "-c", "/scripts/service-health-checker.sh maintenance"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
+    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 60s
 
   backend-discovery:
     image: alpine:latest
@@ -259,6 +287,8 @@ services:
       - RELOAD_COOLDOWN=${CONFIG_RELOAD_COOLDOWN:-120}
       - VERBOSE=${CONFIG_WATCHER_VERBOSE:-false}
       - HAPROXY_CONTAINER_NAME=haproxy-proxy
+      - ALERT_EMAIL=${ALERT_EMAIL:-}
+      - WEBHOOK_URL=${WEBHOOK_URL:-}
     command: >
       sh -c "
         apk add --no-cache curl docker-cli inotify-tools &&
@@ -276,6 +306,10 @@ services:
         log() {
             echo \"[\$(date '+%Y-%m-%d %H:%M:%S')] [\$1] \$2\" >> \"\$LOG_FILE\"
             echo \"[\$1] \$2\"
+            # Log errors to centralized error logger
+            if [ \"\$1\" = \"ERROR\" ]; then
+                /scripts/error-logger.sh log ERROR config-watcher \"\$2\" \"Configuration reload failed\"
+            fi
         }
         
         # Validate configuration using HAProxy container
@@ -320,11 +354,64 @@ services:
         RELOAD_SCRIPT=/tmp/docker-haproxy-reload.sh /scripts/haproxy-config-watcher.sh --daemon
       "
     healthcheck:
-      test: ["CMD", "sh", "-c", "pgrep -f haproxy-config-watcher.sh >/dev/null"]
+      test: ["CMD", "sh", "-c", "/scripts/service-health-checker.sh config-watcher"]
       interval: 60s
       timeout: 10s
       retries: 3
       start_period: 30s
+    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+
+  error-recovery:
+    image: alpine:latest
+    container_name: haproxy-error-recovery
+    restart: unless-stopped
+    volumes:
+      - ./scripts:/scripts:ro
+      - ./logs:/var/log/haproxy
+      - ./certs:/etc/ssl/certs
+      - ./config:/usr/local/etc/haproxy
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - haproxy
+      - certbot
+      - maintenance-server
+      - monitor
+    networks:
+      - proxy-network
+    environment:
+      - ALERT_EMAIL=${ALERT_EMAIL:-}
+      - WEBHOOK_URL=${WEBHOOK_URL:-}
+      - SLACK_WEBHOOK=${SLACK_WEBHOOK:-}
+      - PAGERDUTY_KEY=${PAGERDUTY_KEY:-}
+      - RECOVERY_INTERVAL=${RECOVERY_INTERVAL:-300}
+      - MAX_RECOVERY_ATTEMPTS=${MAX_RECOVERY_ATTEMPTS:-3}
+      - RECOVERY_COOLDOWN=${RECOVERY_COOLDOWN:-300}
+    command: >
+      sh -c "
+        apk add --no-cache curl docker-cli jq openssl bc &&
+        echo 'Starting error recovery manager...' &&
+        
+        # Run initial system check
+        /scripts/error-recovery-manager.sh --check-only &&
+        
+        # Run periodic recovery checks
+        while :; do
+          sleep \${RECOVERY_INTERVAL:-300}
+          /scripts/error-recovery-manager.sh || true
+        done
+      "
+    healthcheck:
+      test: ["CMD", "sh", "-c", "pgrep -f error-recovery-manager.sh >/dev/null || /scripts/error-recovery-manager.sh --check-only"]
+      interval: 300s
+      timeout: 60s
+      retries: 2
+      start_period: 60s
 
 networks:
   proxy-network:
