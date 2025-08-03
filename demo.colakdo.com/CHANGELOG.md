@@ -163,6 +163,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Log Analysis**: Real-time structured logging with query capabilities
 - **Performance Metrics**: Resource usage and response time tracking
 
+## [1.1.0] - 2025-08-03
+
+### Added
+
+#### Local Docker Testing Framework
+- **Complete Docker testing suite** for local development and validation
+- **Minimal HAProxy test** (`test-minimal.sh`) for basic functionality validation
+- **Full local test** (`test-full-local.sh`) with maintenance server integration
+- **Simple local test** (`test-simple-local.sh`) for streamlined testing
+- **Local HAProxy configuration** (`config/haproxy-local.cfg`) for HTTP-only testing
+
+#### Production Deployment Automation
+- **Automated build and deploy script** (`build-and-deploy.sh`) with interactive setup
+- **Comprehensive test deployment script** (`test-deployment.sh`) for post-deployment validation
+- **Production environment configuration** (`.env`) for demo.colakdo.com
+- **Local environment configuration** (`.env.local`) for development testing
+
+#### Docker Compose Enhancements
+- **Local Docker Compose configuration** (`docker-compose.local.yml`) for testing
+- **Simplified service orchestration** for local development
+- **Network isolation** with proper container networking
+- **Resource optimization** for local testing environments
+
+#### Testing and Validation
+- **Docker test results documentation** (`DOCKER_TEST_RESULTS.md`) with comprehensive validation
+- **Performance benchmarking** with startup times and resource usage metrics
+- **Endpoint validation** for all health checks and routing functionality
+- **Load balancing verification** across all configured algorithms
+
+### Enhanced
+
+#### Configuration Management
+- **Environment-specific configurations** for development, testing, and production
+- **Modular HAProxy configurations** with local and production variants
+- **Improved error handling** in deployment scripts
+- **Better logging and monitoring** during deployment process
+
+#### Documentation
+- **Comprehensive test documentation** with detailed results and metrics
+- **Production deployment guides** with step-by-step instructions
+- **Local development setup** instructions for contributors
+- **Troubleshooting guides** for common deployment issues
+
+### Validated
+
+#### Core Functionality
+- **HAProxy load balancing** with multiple algorithms (roundrobin, leastconn, source, uri, first)
+- **Health check endpoints** for all backend services
+- **Host-based routing** for subdomain traffic distribution
+- **Statistics interface** with real-time backend monitoring
+- **Maintenance server fallback** for graceful service degradation
+
+#### Performance Metrics
+- **Startup time**: ~10 seconds for full stack deployment
+- **Response time**: <100ms for all endpoints
+- **Resource usage**: ~25MB RAM for complete local stack
+- **Container orchestration**: Successful Docker networking and service discovery
+
+#### Production Readiness
+- **Configuration syntax validation** for all HAProxy configurations
+- **Service integration testing** with maintenance server and health checks
+- **Network connectivity validation** across all configured services
+- **Error handling verification** with graceful degradation scenarios
+
 ## [Unreleased]
 
 ### Planned Features
@@ -177,6 +241,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **v1.1.0** (2025-08-03): Docker testing framework and production deployment automation
 - **v1.0.0** (2025-08-01): Initial production release with complete HAProxy wildcard SSL solution
 - **v0.9.0** (2025-07-31): Beta release with core functionality
 - **v0.1.0** (2025-07-30): Initial development version

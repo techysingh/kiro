@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  haproxy:
+    image: haproxy:2.8-alpine
+    container_name: haproxy-local-test
+    restart: unless-stopped
+    ports:
+      - "8080:80"      # HTTP port mapped to 8080
+      - "8404:8404"    # Stats port
+    volumes:
+      - ./config/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./logs:/var/log/haproxy
+      - ./errors:/usr/local/etc/haproxy/errors:ro
+    networks:
+      - proxy-network
+    environment:
+      - DOMAIN=colakdo.local
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:8404/health >/dev/null 2>&1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  maintenance-server:
+    image: python:3.11-alpine
+    container_name: maintenance-local-test
+    restart: unless-stopped
+    volumes:
+      - ./scripts:/scripts:ro
+    networks:
+      - proxy-network
+    environment:
+      - MAINTENANCE_PORT=8080
+    command: ["python3", "/scripts/maintenance-server.py"]
+    healthcheck:
+      test: ["CMD", "sh", "-c", "wget -q --spider http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  syslog:
+    image: alpine:latest
+    container_name: syslog-local-test
+    restart: unless-stopped
+    volumes:
+      - ./logs:/var/log/haproxy
+    networks:
+      - proxy-network
+    command: >
+      sh -c "
+        apk add --no-cache rsyslog &&
+        mkdir -p /var/log/haproxy &&
+        
+        cat > /etc/rsyslog.conf << 'EOF'
+        \$ModLoad imudp
+        \$UDPServerRun 514
+        \$UDPServerAddress 0.0.0.0
+        
+        local0.info /var/log/haproxy/haproxy.log
+        local0.info;local0.!err /var/log/haproxy/access.log
+        local0.err /var/log/haproxy/error.log
+        local0.* stop
+        
+        *.info;mail.none;authpriv.none;cron.none /var/log/messages
+        EOF
+        
+        touch /var/log/haproxy/haproxy.log /var/log/haproxy/access.log /var/log/haproxy/error.log &&
+        chmod 644 /var/log/haproxy/*.log &&
+        
+        echo 'Starting rsyslog daemon...' &&
+        rsyslogd -n -f /etc/rsyslog.conf
+      "
+
+networks:
+  proxy-network:
+    name: proxy-network
+    driver: bridge
+    attachable: true
